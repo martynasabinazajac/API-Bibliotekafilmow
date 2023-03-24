@@ -7,6 +7,7 @@ class Movie:
         self.publication_date = publication_date
         self.genre = genre
         self.number_of_play = number_of_play
+        self.number_of_plays_x= number_of_play + random.randint(1,100)
 
     def __str__(self):
         return f"{self.title} (publication date:{self.publication_date})"
@@ -32,7 +33,62 @@ class TV_series(Movie):
         return f"title:{self.title}, publication date:{self.publication_date}, genre:{self.genre}, number of play:{self.number_of_play}, S{self.season_number:02d}E{self.episode_number:02d}"
 
 
-movies = [
+
+
+def show_list(list):
+    list.sort(key=lambda x: x.title)
+    for x in list:
+        print(x)
+    return "Done"
+
+
+def show_list_number_of_plays(list):
+    for x in list:
+        print(x.play())
+
+
+def get_series(list, list2):
+    for x in list:
+        if isinstance(x, TV_series) == True:
+            list2.append(x)
+    return "Done!"
+
+
+def get_movie(list, list2):
+    for x in list:
+        if type(x) == Movie:
+            list2.append(x)
+    return "Done!"
+
+
+def search(list):
+    search_option = str(input("Enter title:"))
+    for x in list:
+        if x.title == search_option:
+            print(x.search_options())
+
+
+def generate_views(list):
+    y = random.choice(list)
+    print(y)
+    y.number_of_play=y.number_of_plays_x
+    print(y.number_of_play)
+
+
+def generate_views_10(quantity, list):
+    for _ in range(quantity):
+        generate_views(list)
+
+
+def top_titles(list):
+    list.sort(key=lambda x: x.number_of_play, reverse=True)
+    top_values = list[:quantity2]
+    for x in top_values:
+        print(x)
+
+
+if __name__ == "__main__":
+    movies = [
     Movie(
         title="Hen hen tam", publication_date="2014", genre="comedy", number_of_play=11
     ),
@@ -56,82 +112,26 @@ movies = [
         season_number=9,
     ),
 ]
-
-
-def show_list(list):
-    list.sort(key=lambda x: x.title)
-    for x in list:
-        print(x)
-    return "Done"
-
-
-def show_list_number_of_plays(list):
-    for x in list:
-        print(x.play())
-
-
-def get_series(list, list2):
-    for x in list:
-        if isinstance(x, TV_series) == True:
-            list2.append(x)
-        list2.sort(key=lambda x: x.title)
-    for x in list2:
-        print(x)
-    return "Done!"
-
-
-def get_movie(list, list2):
-    for x in list:
-        if isinstance(x, Movie) == True and isinstance(x, TV_series) == False:
-            list2.append(x)
-            list2.sort(key=lambda x: x.title)
-    for x in list2:
-        print(x)
-    return "Done!"
-
-
-def search(list):
-    search_option = str(input("Enter title:"))
-    for x in list:
-        if x.title == search_option:
-            print(x.search_options())
-
-
-def generate_views(list):
-    y = random.choice(list)
-    print(y)
-    rr = random.randint(1, 100)
-    x = y.number_of_play + rr
-    print(x)
-
-
-def generate_views_10(quantity, list):
-    for _ in range(quantity):
-        generate_views(list)
-
-
-def top_titles(list):
-    list.sort(key=lambda x: x.number_of_play, reverse=True)
-    top_values = list[:quantity2]
-    for x in top_values:
-        print(x)
-
-
-if __name__ == "__main__":
     get_movies_series = []
     get_movies = []
+    print("\n------------------------------------------------------\nAll list:")
     show_list(movies)
+    print("\n------------------------------------------------------\nNumber of plays:")
     show_list_number_of_plays(movies)
     print('\nList of "TV_series:')
     get_series(movies, get_movies_series)
+    show_list(get_movies_series)
     print("\n------------------------------------------------------\nList of movies:")
     get_movie(movies, get_movies)
+    show_list(get_movies)
     print(
         "\n------------------------------------------------------\nInformation about searched movie:"
     )
     search(movies)
     print("\n------------------------------------------------------\nLucky choice:")
     generate_views(movies)
+    print("\n------------------------------------------------------\nLList of movies with numbers of play:")
+    show_list_number_of_plays(movies)
     print(
         "\n------------------------------------------------------\nLucky choice for more than one record:"
     )
