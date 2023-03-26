@@ -7,7 +7,6 @@ class Movie:
         self.publication_date = publication_date
         self.genre = genre
         self.number_of_play = number_of_play
-        self.number_of_plays_x= number_of_play + random.randint(1,100)
 
     def __str__(self):
         return f"{self.title} (publication date:{self.publication_date})"
@@ -47,17 +46,21 @@ def show_list_number_of_plays(list):
         print(x.play())
 
 
-def get_series(list, list2):
+def get_series(list):
+    get_movies_series = []
     for x in list:
-        if isinstance(x, TV_series) == True:
-            list2.append(x)
+        if type(x) == TV_series:
+            get_movies_series.append(x)
+    show_list(get_movies_series)
     return "Done!"
 
 
-def get_movie(list, list2):
+def get_movie(list):
+    get_movies = []
     for x in list:
         if type(x) == Movie:
-            list2.append(x)
+            get_movies.append(x)
+    show_list(get_movies)
     return "Done!"
 
 
@@ -71,7 +74,8 @@ def search(list):
 def generate_views(list):
     y = random.choice(list)
     print(y)
-    y.number_of_play=y.number_of_plays_x
+    rr =random.randint(1,100)
+    y.number_of_play +=rr
     print(y.number_of_play)
 
 
@@ -112,18 +116,14 @@ if __name__ == "__main__":
         season_number=9,
     ),
 ]
-    get_movies_series = []
-    get_movies = []
     print("\n------------------------------------------------------\nAll list:")
     show_list(movies)
     print("\n------------------------------------------------------\nNumber of plays:")
     show_list_number_of_plays(movies)
     print('\nList of "TV_series:')
-    get_series(movies, get_movies_series)
-    show_list(get_movies_series)
+    get_series(movies)
     print("\n------------------------------------------------------\nList of movies:")
-    get_movie(movies, get_movies)
-    show_list(get_movies)
+    get_movie(movies)
     print(
         "\n------------------------------------------------------\nInformation about searched movie:"
     )
