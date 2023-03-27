@@ -46,22 +46,20 @@ def show_list_number_of_plays(list):
         print(x.play())
 
 
-def get_series(list):
-    get_movies_series = []
+def get(list,typ):
+    list2 = []
     for x in list:
-        if type(x) == TV_series:
-            get_movies_series.append(x)
-    show_list(get_movies_series)
-    return "Done!"
+        if type(x) == typ:
+            list2.append(x)
+    show_list(list2)
+
+
+def get_series(list):
+    get(list, TV_series)
 
 
 def get_movie(list):
-    get_movies = []
-    for x in list:
-        if type(x) == Movie:
-            get_movies.append(x)
-    show_list(get_movies)
-    return "Done!"
+    get(list, Movie)
 
 
 def search(list):
